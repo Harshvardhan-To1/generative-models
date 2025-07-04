@@ -38,7 +38,7 @@ def clip_process_images(images: torch.Tensor) -> torch.Tensor:
 
 class DeepFloydDataFiltering(object):
     def __init__(
-        self, verbose: bool = False, device: torch.device = torch.device("cpu")
+        self, verbose: bool = False, device: torch.device = torch.device("cpu"), weights:tuple = (None, None)
     ):
         super().__init__()
         self.verbose = verbose
@@ -47,10 +47,10 @@ class DeepFloydDataFiltering(object):
         self.clip_model.eval()
 
         self.cpu_w_weights, self.cpu_w_biases = load_model_weights(
-            os.path.join(RESOURCES_ROOT, "w_head_v1.npz")
+            weights[1]
         )
         self.cpu_p_weights, self.cpu_p_biases = load_model_weights(
-            os.path.join(RESOURCES_ROOT, "p_head_v1.npz")
+            weights[0]
         )
         self.w_threshold, self.p_threshold = 0.5, 0.5
 
