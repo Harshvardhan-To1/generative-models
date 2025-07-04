@@ -1391,6 +1391,7 @@ def load_model(
     num_steps: int,
     verbose: bool = False,
     ckpt_path: str = None,
+    extra_weights: tuple = (None,None)
 ):
     config = OmegaConf.load(config)
     if device == "cuda":
@@ -1411,5 +1412,5 @@ def load_model(
     else:
         model = instantiate_from_config(config.model).to(device).eval()
 
-    filter = DeepFloydDataFiltering(verbose=False, device=device)
+    filter = DeepFloydDataFiltering(verbose=False, device=device, weights=extra_weights)
     return model, filter
