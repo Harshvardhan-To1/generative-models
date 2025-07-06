@@ -1048,7 +1048,7 @@ class FrozenOpenCLIPImagePredictionEmbedder(AbstractEmbModel):
 
     def forward(self, vid):
         vid = self.open_clip(vid)
-        vid = rearrange(vid, "(b t) d -> b t d", t=self.n_cond_frames))
+        vid = rearrange(vid, "(b t) d -> b t d", t=self.n_cond_frames)
         vid = repeat(vid, "b t d -> (b s) t d", s=self.n_copies)
 
         return vid
